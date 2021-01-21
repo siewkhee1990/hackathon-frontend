@@ -43,10 +43,10 @@ export default function Login() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </Form.Group>
-        <button type="submit" class="btn btn-primary">
+        <Button type="submit" variant="primary">
           Sign in
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 }
