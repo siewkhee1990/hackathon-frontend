@@ -1,15 +1,13 @@
 import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const submitLogin = (event) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Confirm password and password not matched!");
-    } else if (!email || !password || !confirmPassword) {
+    if (!email || !password) {
       alert("Please key in required field!");
     }
     let data = {
@@ -21,50 +19,31 @@ export default function Login() {
 
   return (
     <div>
-      <form onSubmit={(event) => submitLogin(event)}>
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input
+      <Form onSubmit={(event) => submitLogin(event)} className="m-3">
+        <Form.Group controlId="login">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
             type="email"
-            class="form-control"
-            id="email"
-            placeholder="Your E-Mail here..."
-            required
+            placeholder="Enter email address"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-        </div>
+        </Form.Group>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
+        <Form.Group controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
-            class="form-control"
-            id="password"
-            placeholder="Your password here..."
-            required
+            placeholder="Enter password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </div>
+        </Form.Group>
 
-        <div class="form-group">
-          <label for="password">Confirm Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            placeholder="Re-enter your password here..."
-            required
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
-          />
-        </div>
-
-        <button type="submit" class="btn btn-primary">
-          Sign in
-        </button>
-      </form>
+        <Button variant="primary" type="submit" className="m-5">
+          Login
+        </Button>
+      </Form>
     </div>
   );
 }
