@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { BACKEND_URL_PATIENTS } from "./Constant";
+import { BACKEND_URL_GPS } from "../Constant";
 import { Button, Form } from "react-bootstrap";
 
-export default function Login() {
+export default function GPLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,13 +16,14 @@ export default function Login() {
       email: email,
       password: password,
     };
-    axios.post(`${BACKEND_URL_PATIENTS}/login`, data).then((response) => {
+    axios.post(`${BACKEND_URL_GPS}/login`, data).then((response) => {
       console.log(response);
     });
   };
 
   return (
     <div>
+      <h1>GP Portal</h1>
       <Form onSubmit={(event) => submitLogin(event)} className="m-3">
         <Form.Group controlId="login">
           <Form.Label>Email</Form.Label>
