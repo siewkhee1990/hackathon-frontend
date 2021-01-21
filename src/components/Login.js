@@ -1,22 +1,23 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { BACKEND_URL_PATIENTS } from "./Constant";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const submitLogin = (event) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Confirm password and password not matched!");
-    } else if (!email || !password || !confirmPassword) {
+    if (!email || !password) {
       alert("Please key in required field!");
     }
     let data = {
       email: email,
       password: password,
     };
-    console.log(data);
+    axios.post(`${BACKEND_URL_PATIENTS}/login`, data).then((response) => {
+      console.log(response);
+    });
   };
 
   return (
@@ -45,19 +46,6 @@ export default function Login() {
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Confirm Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            placeholder="Re-enter your password here..."
-            required
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
           />
         </div>
 
