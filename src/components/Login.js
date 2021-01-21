@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { BACKEND_URL_PATIENTS } from "./Constant";
 import { Button, Form } from "react-bootstrap";
 
 export default function Login() {
@@ -14,7 +16,9 @@ export default function Login() {
       email: email,
       password: password,
     };
-    console.log(data);
+    axios.post(`${BACKEND_URL_PATIENTS}/login`, data).then((response) => {
+      console.log(response);
+    });
   };
 
   return (
@@ -39,11 +43,10 @@ export default function Login() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </Form.Group>
-
-        <Button variant="primary" type="submit" className="m-5">
-          Login
-        </Button>
-      </Form>
+        <button type="submit" class="btn btn-primary">
+          Sign in
+        </button>
+      </form>
     </div>
   );
 }
