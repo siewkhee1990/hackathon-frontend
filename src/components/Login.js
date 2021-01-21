@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { BACKEND_URL_PATIENTS } from "./Constant";
+import { Button, Form } from "react-bootstrap";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -22,33 +23,26 @@ export default function Login() {
 
   return (
     <div>
-      <form onSubmit={(event) => submitLogin(event)}>
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input
+      <Form onSubmit={(event) => submitLogin(event)} className="m-3">
+        <Form.Group controlId="login">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
             type="email"
-            class="form-control"
-            id="email"
-            placeholder="Your E-Mail here..."
-            required
+            placeholder="Enter email address"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-        </div>
+        </Form.Group>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
+        <Form.Group controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
-            class="form-control"
-            id="password"
-            placeholder="Your password here..."
-            required
+            placeholder="Enter password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </div>
-
+        </Form.Group>
         <button type="submit" class="btn btn-primary">
           Sign in
         </button>
