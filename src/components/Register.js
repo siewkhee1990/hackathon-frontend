@@ -2,23 +2,23 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function Register() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [firstname, setFirstName] = useState('');
+    const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [confirmpassword, setConfirmPassword] = useState('');
+    const [phonenumber, setPhoneNumber] = useState('');
 
     const register = (event) => {
         event.preventDefault();
-        if (password === confirmPassword) {
+        if (password === confirmpassword) {
             axios.post('api.example.com/register', {
-                firstName: firstName,
-                lastName: lastName,
+                firstname: firstname,
+                lastname: lastname,
                 email: email,
                 password: password,
-                confirmPassword: confirmPassword,
-                phoneNumber: phoneNumber
+                confirmpassword: confirmpassword,
+                phonenumber: phonenumber
             }).then(res => {
                 console.log(res.data);
                 alert("Registeration successful");
@@ -41,7 +41,7 @@ function Register() {
                         id="firstName"
                         placeholder="first name"
                         required
-                        value={firstName}
+                        value={firstname}
                         onChange={(event) => setFirstName(event.target.value)}
                     />
                 </div>
@@ -54,7 +54,7 @@ function Register() {
                         id="lastName"
                         placeholder="last name"
                         required
-                        value={lastName}
+                        value={lastname}
                         onChange={(event) => setLastName(event.target.value)}
                     />
                 </div>
@@ -95,7 +95,7 @@ function Register() {
                         placeholder="confirm password"
                         required
                         minLength="8"
-                        value={confirmPassword}
+                        value={confirmpassword}
                         onChange={(event) => setConfirmPassword(event.target.value)}
                     />
                 </div>
@@ -109,7 +109,7 @@ function Register() {
                         placeholder="phone number"
                         pattern="^[8-9][0-9]{7}$"
                         required
-                        value={phoneNumber}
+                        value={phonenumber}
                         onChange={(event) => setPhoneNumber(event.target.value)}
                     />
                 </div>
