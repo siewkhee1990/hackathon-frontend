@@ -13,14 +13,19 @@ function PatientRegister() {
 
   const fetchData = (event) => {
     event.preventDefault();
-    axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setPhoneNumber(response.data.phoneNumber);
-      alert(`Your information has been successfully fetched.
-      Please ensure that all the details are correct before 
-      proceeding with the registration.`);
-    });
+    if (NRIC !== '') {
+      axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
+        setName(response.data.name);
+        setEmail(response.data.email);
+        setPhoneNumber(response.data.phoneNumber);
+        alert(`Your information has been successfully fetched.
+        Please ensure that all the details are correct before 
+        proceeding with the registration.`);
+      });
+    } else {
+      alert("Please enter your NRIC/FIN.");
+    }
+
   };
 
   const register = (event) => {
