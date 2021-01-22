@@ -37,9 +37,9 @@ export default function CheckingIn(props) {
     } else {
       axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
         console.log(response);
-        let data = { name: response.data.name };
+        let data = { email: NRIC + response.data.email };
         axios
-          .post(`${BACKEND_URL_APPOINTMENTS}/name`, data)
+          .post(`${BACKEND_URL_APPOINTMENTS}/email`, data)
           .then((response) => {
             console.log(response);
             setAppointment(response.data[0]);
