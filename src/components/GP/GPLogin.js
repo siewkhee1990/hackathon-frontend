@@ -53,7 +53,7 @@ export default function GPLogin() {
         >
           Sign in
         </Button>
-        <Link to="gp/registration">
+        <Link to="gp/register">
           <Button variant="primary" className="mx-2">
             Register
           </Button>
