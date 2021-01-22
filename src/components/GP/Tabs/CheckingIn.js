@@ -41,10 +41,14 @@ export default function CheckingIn(props) {
         axios
           .post(`${BACKEND_URL_APPOINTMENTS}/name`, data)
           .then((response) => {
+            console.log(response);
             setAppointment(response.data[0]);
           })
           .catch((err) => {
-            console.log(err);
+            console.log(err.response);
+            if (err.response.status === 404) {
+              alert(err.response.data.message);
+            }
           });
       });
     }

@@ -27,7 +27,7 @@ export default function GPDashboard(props) {
   useEffect(() => {
     if (thisUser) {
       axios
-        .get(`${BACKEND_URL_APPOINTMENTS}/${thisUser.gpid}`)
+        .get(`${BACKEND_URL_APPOINTMENTS}/gpid/${thisUser.gpid}`)
         .then((response) => {
           console.log(response);
           setAppointments(response.data);
