@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { BACKEND_URL_APPOINTMENTS, BACKEND_URL_GPS } from "../Constant";
 
+
 export default function Appointment(props) {
   const [vaccineType, setVaccineType] = useState("Covid-19");
   const [date, setDate] = useState("");
