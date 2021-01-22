@@ -18,6 +18,7 @@ function App() {
         <Route path="/patient/register" component={PatientRegister} />
         <Route path="/patient/dashboard" component={GPDashboard} />
         <Route path="/gp/register" component={GPRegister} />
+        <Route path="/gp/dashboard" component={GPDashboard} />
         <Route path="/patient" component={PatientLogin} />
         <Route path="/gp" component={GPLogin} />
       </Switch>
