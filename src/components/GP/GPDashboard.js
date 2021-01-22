@@ -54,7 +54,7 @@ export default function GPDashboard(props) {
         date: newAppointmentDate,
       };
       axios
-        .put(`${BACKEND_URL_APPOINTMENTS}/${id}/changeDate`, data)
+        .put(`${BACKEND_URL_APPOINTMENTS}/id/${id}/changeDate`, data)
         .then((response) => {
           alert(response.data.message);
           setEdit(null);
