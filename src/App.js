@@ -7,6 +7,7 @@ import PatientLogin from "./components/Patient/PatientLogin";
 import PatientRegister from "./components/Patient/PatientRegister";
 import GPLogin from "./components/GP/GPLogin";
 import GPDashboard from "./components/GP/GPDashboard";
+import PTDashboard from "./components/Patient/PTDashboard";
 import GPRegister from "./components/GP/GPRegister";
 
 function App() {
@@ -16,10 +17,12 @@ function App() {
       <Switch>
         <Route exact path="/" component={Main} />
         <Route path="/patient/register" component={PatientRegister} />
-        <Route path="/patient/dashboard" component={GPDashboard} />
+        <Route path="/patient/dashboard" component={PTDashboard} />
         <Route path="/gp/register" component={GPRegister} />
+        <Route path="/gp/dashboard" component={GPDashboard} />
         <Route path="/patient" component={PatientLogin} />
         <Route path="/gp" component={GPLogin} />
+        {/* <Testing /> */}
       </Switch>
     </div>
   );

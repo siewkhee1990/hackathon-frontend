@@ -16,6 +16,7 @@ export default function Main() {
           Proceed as GP
         </Button>
       </Link>
+
     </div>
   );
 }
