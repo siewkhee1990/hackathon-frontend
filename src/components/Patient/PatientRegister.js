@@ -104,7 +104,7 @@ function PatientRegister() {
             placeholder="confirm password"
             required
             minLength="8"
-            value={password}
+            value={confirmpassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
           />
         </Form.Group>
