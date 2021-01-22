@@ -4,8 +4,7 @@ import { BACKEND_URL_PATIENTS } from "../Constant";
 import { Button, Form } from "react-bootstrap";
 
 function PatientRegister() {
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
@@ -15,7 +14,12 @@ function PatientRegister() {
   const fetchData = (event) => {
     event.preventDefault();
     axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
-      console.log(response);
+      setName(response.data.name);
+      setEmail(response.data.email);
+      setPhoneNumber(response.data.phonenumber);
+      alert(`Your information has been successfully fetched.
+      Please ensure that all the details are correct before 
+      proceeding with the registration.`);
     });
   };
 
@@ -24,8 +28,7 @@ function PatientRegister() {
     if (password === confirmpassword) {
       axios
         .post(`${BACKEND_URL_PATIENTS}/register`, {
-          firstname: firstname,
-          lastname: lastname,
+          name: name,
           email: email,
           password: password,
           confirmpassword: confirmpassword,
@@ -46,37 +49,27 @@ function PatientRegister() {
   return (
     <div>
       <h1>Patient Register</h1>
-      <Form.Group controlId="nric">
-        <Form.Label>Key in NRIC / FIN</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Type in NRIC / FIN to fill in data."
-          value={NRIC}
-          onChange={(event) => setNRIC(event.target.value)}
-        />
-        <Button onClick={(event) => fetchData(event)}>fetch info</Button>
-      </Form.Group>
-
-      <Form onSubmit={(event) => register(event)} className="m-3">
-        <Form.Group controlId="firstname">
-          <Form.Label>First Name</Form.Label>
+      <Form>
+        <Form.Group controlId="nric">
+          <Form.Label>Key in NRIC / FIN</Form.Label>
           <Form.Control
             type="text"
-            placeholder="first name"
-            required
-            value={firstname}
-            onChange={(event) => setFirstName(event.target.value)}
+            placeholder="Type in NRIC / FIN to fill in data."
+            value={NRIC}
+            onChange={(event) => setNRIC(event.target.value)}
           />
+          <Button onClick={(event) => fetchData(event)}>fetch info</Button>
         </Form.Group>
 
-        <Form.Group controlId="lastname">
-          <Form.Label>Last Name</Form.Label>
+        <Form.Group controlId="name">
+          <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="last name"
+            placeholder="name"
             required
-            value={lastname}
-            onChange={(event) => setLastName(event.target.value)}
+            defaultValue={name}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
           />
         </Form.Group>
 
@@ -86,6 +79,7 @@ function PatientRegister() {
             type="email"
             placeholder="email"
             required
+            defaultValue={email}
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -122,16 +116,17 @@ function PatientRegister() {
             placeholder="phone number"
             pattern="^[8-9][0-9]{7}$"
             required
+            defaultValue={phonenumber}
             value={phonenumber}
             onChange={(event) => setPhoneNumber(event.target.value)}
           />
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" onClick={(event) => register(event)}>
           Register
         </Button>
       </Form>
-    </div>
+    </div >
   );
 }
 
