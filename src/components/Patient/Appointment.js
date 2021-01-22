@@ -70,25 +70,18 @@ export default function Appointment() {
                         <Form.Control
                             as="select"
                             defaultValue="Choose..."
-                            value={gps} onChange={e => setGps(e.target.value)}>
+                            value={gpid} onChange={e => setGpid(e.target.value)}>
                             <option>Choose...</option>
                             {gps.map((element) => {
                                 return (
-                                    
+
                                     <option>{element.clinicName}</option>
                                 )
                             })}
-                            
+
 
 
                         </Form.Control>
-                    </Form.Group>
-
-                    <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Remarks</Form.Label>
-                        <Form.Control as="textarea" rows={3}
-                            value={remarks} onChange={e => setRemarks(e.target.value)}
-                        />
                     </Form.Group>
 
                     <Button variant="primary" type="submit">

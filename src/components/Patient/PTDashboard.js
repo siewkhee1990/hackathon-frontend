@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Button, Form, Image, Tabs, Tab, Table, Nav, Modal, Navbar, FormControl, Container, Row, Col, Accordion, Card, Variant } from "react-bootstrap";
-
-
-
+import { Link } from "react-router-dom";
+import Appointments from "../GP/Tabs/Appointments";
 
 export default function PTDashboard() {
     const [thisUser, setThisUser] = useState(true);
     const [patients, setPatients] = useState([]);
     const [edit, setEdit] = useState(null);
+
+    const [appointments, setAppointments] = useState([]);
 
     const deleteAppointment = (id, info) => {
         console.log(id);
@@ -32,10 +33,12 @@ export default function PTDashboard() {
             <Navbar bg="primary" variant="dark">
 
                 <Navbar.Brand href="#home">My Profile</Navbar.Brand>
+
+
+
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#appointments">Appointments</Nav.Link>
-                    <Nav.Link href="#help">Help</Nav.Link>
+                    <Link to="/patient/appointment"><Nav.Link href="#myAppointments">My Appointments</Nav.Link></Link>
+                    <Link to=""><Nav.Link href="#logout">logout</Nav.Link></Link>
                 </Nav>
 
                 <Form inline>
@@ -63,19 +66,37 @@ export default function PTDashboard() {
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Vaccination</th>
                                             <th>Date</th>
+                                            <th>Vacine Type</th>
                                             <th>GP</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Covid-19</td>
-                                            <td>22 MAR 2021</td>
-                                            <td>Thomson Medical</td>
-                                        </tr>
+                                        {
+                                            appointments.map(element => {
+                                                return <tr key={element.aid} id={element.aid}>
+
+                                                    <td>
+                                                        {element.aid}
+                                                    </td>
+
+                                                    <td>
+                                                        {element.date}
+                                                    </td>
+
+                                                    <td>
+                                                        {element.vaccineType}
+                                                    </td>
+
+                                                    <td>
+                                                        {element.gpid}
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                            )
+                                        }
 
                                     </tbody>
                                 </Table>
@@ -200,7 +221,7 @@ export default function PTDashboard() {
 
             </Container>
 
-        </div>
+        </div >
     );
 }
 
@@ -222,14 +243,14 @@ function HealthCheckUpModal(props) {
             <Modal.Body>
                 <p>Please provide the required information!</p>
 
-             {/* Health Checup Form    */}
+                {/* Health Checup Form    */}
                 <Form>
 
-                    
 
 
 
-                    
+
+
                     <fieldset>
                         {/* Pain */}
                         <Form.Group>
@@ -315,9 +336,9 @@ function HealthCheckUpModal(props) {
                             ))}
 
                         </Form.Group>
-                        
+
                     </fieldset>
-                    
+
 
                     <Form.Group as={Row}>
                         <Col sm={{ span: 10, offset: 2 }}>
