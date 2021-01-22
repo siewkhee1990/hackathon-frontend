@@ -3,7 +3,7 @@ import axios from "axios";
 import { BACKEND_URL_PATIENTS } from "../Constant";
 import { Button, Form } from "react-bootstrap";
 
-function PatientRegister() {
+function PatientRegister(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +13,7 @@ function PatientRegister() {
 
   const fetchData = (event) => {
     event.preventDefault();
-    if (NRIC !== '') {
+    if (NRIC !== "") {
       axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
         setName(response.data.name);
         setEmail(response.data.email);
@@ -25,12 +25,11 @@ function PatientRegister() {
     } else {
       alert("Please enter your NRIC/FIN.");
     }
-
   };
 
   const register = (event) => {
     event.preventDefault();
-    if (name === '' || email === '' || password.length !== 8) {
+    if (name === "" || email === "" || password.length !== 8) {
       alert("Please fill in required fields correctly!");
     } else if (password === confirmPassword) {
       axios
@@ -43,6 +42,7 @@ function PatientRegister() {
         .then((res) => {
           console.log(res.data);
           alert("Registeration successful");
+          props.history.push("/patient");
         })
         .catch((error) => {
           console.log(error.response);
@@ -128,11 +128,15 @@ function PatientRegister() {
           />
         </Form.Group>
 
-        <Button type="submit" variant="primary" onClick={(event) => register(event)}>
+        <Button
+          type="submit"
+          variant="primary"
+          onClick={(event) => register(event)}
+        >
           Register
         </Button>
       </Form>
-    </div >
+    </div>
   );
 }
 

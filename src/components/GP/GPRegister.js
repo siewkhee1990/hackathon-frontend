@@ -3,7 +3,7 @@ import axios from "axios";
 import { BACKEND_URL_GPS } from "../Constant";
 import { Button, Form } from "react-bootstrap";
 
-function GPRegister() {
+function GPRegister(props) {
   const [clinicName, setClinicName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -33,6 +33,7 @@ function GPRegister() {
         })
         .then((res) => {
           alert(res.data.message);
+          props.history.push("/gp");
         })
         .catch((error) => {
           alert(error.response.data.message);
