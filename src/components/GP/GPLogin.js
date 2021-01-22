@@ -23,7 +23,7 @@ export default function GPLogin(props) {
         localStorage.setItem("gptoken", JSON.stringify(response.data.gptoken));
         props.history.push("/gp/dashboard");
       })
-      .catch((err) => alert(err.response.data.message));
+      .catch((err) => alert(err));
   };
 
   return (

@@ -7,32 +7,38 @@ function PatientRegister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmPassword] = useState("");
-  const [phonenumber, setPhoneNumber] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [NRIC, setNRIC] = useState("");
 
   const fetchData = (event) => {
     event.preventDefault();
-    axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setPhoneNumber(response.data.phonenumber);
-      alert(`Your information has been successfully fetched.
-      Please ensure that all the details are correct before 
-      proceeding with the registration.`);
-    });
+    if (NRIC !== '') {
+      axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
+        setName(response.data.name);
+        setEmail(response.data.email);
+        setPhoneNumber(response.data.phoneNumber);
+        alert(`Your information has been successfully fetched.
+        Please ensure that all the details are correct before 
+        proceeding with the registration.`);
+      });
+    } else {
+      alert("Please enter your NRIC/FIN.");
+    }
+
   };
 
   const register = (event) => {
     event.preventDefault();
-    if (password === confirmpassword) {
+    if (name === '' || email === '' || password.length !== 8) {
+      alert("Please fill in required fields correctly!");
+    } else if (password === confirmPassword) {
       axios
-        .post(`${BACKEND_URL_PATIENTS}/register`, {
+        .post(`${BACKEND_URL_PATIENTS}/create`, {
           name: name,
           email: email,
           password: password,
-          confirmpassword: confirmpassword,
-          phonenumber: phonenumber,
+          phoneNumber: phoneNumber,
         })
         .then((res) => {
           console.log(res.data);
@@ -97,14 +103,14 @@ function PatientRegister() {
           />
         </Form.Group>
 
-        <Form.Group controlId="confirmpassword">
+        <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="confirm password"
             required
             minLength="8"
-            value={confirmpassword}
+            value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
           />
         </Form.Group>
@@ -116,8 +122,8 @@ function PatientRegister() {
             placeholder="phone number"
             pattern="^[8-9][0-9]{7}$"
             required
-            defaultValue={phonenumber}
-            value={phonenumber}
+            defaultValue={phoneNumber}
+            value={phoneNumber}
             onChange={(event) => setPhoneNumber(event.target.value)}
           />
         </Form.Group>
