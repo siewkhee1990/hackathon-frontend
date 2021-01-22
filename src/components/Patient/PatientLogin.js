@@ -27,7 +27,6 @@ export default function PatientLogin(props) {
       password: password,
     };
     axios.post(`${BACKEND_URL_PATIENTS}/login`, data).then((response) => {
-      // localStorage.setItem("ptoken", response.data.ptoken);
       localStorage.setItem("ptoken", JSON.stringify(response.data.ptoken));
       props.history.push("/patient/dashboard");
     });
