@@ -4,7 +4,7 @@ import { BACKEND_URL_GPS } from "../Constant";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function GPLogin() {
+export default function GPLogin(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,9 +17,13 @@ export default function GPLogin() {
       email: email,
       password: password,
     };
-    axios.post(`${BACKEND_URL_GPS}/login`, data).then((response) => {
-      console.log(response);
-    });
+    axios
+      .post(`${BACKEND_URL_GPS}/login`, data)
+      .then((response) => {
+        localStorage.setItem("gptoken", JSON.stringify(response.data.gptoken));
+        props.history.push("/gp/dashboard");
+      })
+      .catch((err) => alert(err.response.data.message));
   };
 
   return (
@@ -53,7 +57,7 @@ export default function GPLogin() {
         >
           Sign in
         </Button>
-        <Link to="gp/registration">
+        <Link to="gp/register">
           <Button variant="primary" className="mx-2">
             Register
           </Button>
