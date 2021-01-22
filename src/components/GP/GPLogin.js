@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { BACKEND_URL_GPS } from "../Constant";
 import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function GPLogin() {
   const [email, setEmail] = useState("");
@@ -24,7 +25,7 @@ export default function GPLogin() {
   return (
     <div>
       <h1>GP Portal</h1>
-      <Form onSubmit={(event) => submitLogin(event)} className="m-3">
+      <Form className="m-3">
         <Form.Group controlId="login">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -44,9 +45,19 @@ export default function GPLogin() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button
+          type="submit"
+          variant="primary"
+          className="mx-2"
+          onClick={(event) => submitLogin(event)}
+        >
           Sign in
         </Button>
+        <Link to="gp/registration">
+          <Button variant="primary" className="mx-2">
+            Register
+          </Button>
+        </Link>
       </Form>
     </div>
   );

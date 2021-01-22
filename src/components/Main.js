@@ -1,15 +1,20 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 export default function Main() {
   return (
     <div>
       <h1>Welcome to Vaccination Management System</h1>
       <Link to="/patient">
-        <button>Proceed as Patient</button>
+        <Button variant="primary" className="mx-2">
+          Proceed as Patient
+        </Button>
       </Link>
       <Link to="/gp">
-        <button>Proceed as GP</button>
+        <Button variant="primary" className="mx-2">
+          Proceed as GP
+        </Button>
       </Link>
     </div>
   );

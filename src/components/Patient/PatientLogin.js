@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL_PATIENTS } from "../Constant";
 import { Button, Form } from "react-bootstrap";
 
-export default function PatientLogin() {
+export default function PatientLogin(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    let info = JSON.parse(localStorage.getItem("ptoken"));
+    console.log(info);
+    console.log(!info);
+    if (info) {
+      console.log(info.pid);
+    }
+  }, []);
 
   const submitLogin = (event) => {
     event.preventDefault();
@@ -17,7 +26,9 @@ export default function PatientLogin() {
       password: password,
     };
     axios.post(`${BACKEND_URL_PATIENTS}/login`, data).then((response) => {
-      console.log(response);
+      // localStorage.setItem("ptoken", response.data.ptoken);
+      localStorage.setItem("ptoken", JSON.stringify(response.data.ptoken));
+      props.history.push("/patient/dashboard");
     });
   };
 
