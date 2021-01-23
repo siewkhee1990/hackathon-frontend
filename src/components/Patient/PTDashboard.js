@@ -3,9 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
-  Image,
-  Tabs,
-  Tab,
   Table,
   Nav,
   Modal,
@@ -16,16 +13,15 @@ import {
   Col,
   Accordion,
   Card,
-  Variant,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Appointments from "../GP/Tabs/Appointments";
 import { BACKEND_URL_APPOINTMENTS } from "../Constant";
 
 export default function PTDashboard(props) {
-  const [thisUser, setThisUser] = useState(true);
-  const [patients, setPatients] = useState([]);
-  const [edit, setEdit] = useState(null);
+  // const [thisUser, setThisUser] = useState(true);
+  // const [patients, setPatients] = useState([]);
+  // const [edit, setEdit] = useState(null);
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {

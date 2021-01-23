@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Tabs, Tab, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 
 export default function Appointments(props) {
   return (
