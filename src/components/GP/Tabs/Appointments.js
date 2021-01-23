@@ -30,66 +30,44 @@ export default function Appointments(props) {
                   <td>{element.vaccineType}</td>
                   <td>{element.status}</td>
                   <td>
-                    {element.status === "completed" && (
-                      <Button
-                        variant="outline-success"
-                        disabled={element.status !== "completed"}
-                      >
-                        Schedule
-                      </Button>
-                    )}
-                    {element.status !== "completed" && (
-                      <Button
-                        variant="outline-secondary"
-                        disabled={element.status !== "completed"}
-                      >
-                        Schedule
-                      </Button>
-                    )}
+                    <Button
+                      variant={
+                        element.status === "completed"
+                          ? "outline-success"
+                          : "outline-secondary"
+                      }
+                      disabled={element.status !== "completed"}
+                    >
+                      Schedule
+                    </Button>
                   </td>
                   <td>
-                    {element.status === "pending" && (
-                      <Button
-                        variant="outline-warning"
-                        onClick={() => props.setEdit(element)}
-                        disabled={element.status === "completed"}
-                      >
-                        Edit
-                      </Button>
-                    )}
-                    {element.status !== "pending" && (
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() => props.setEdit(element)}
-                        disabled={element.status === "completed"}
-                      >
-                        Edit
-                      </Button>
-                    )}
+                    <Button
+                      variant={
+                        element.status === "pending"
+                          ? "outline-warning"
+                          : "outline-secondary"
+                      }
+                      onClick={() => props.setEdit(element)}
+                      disabled={element.status === "completed"}
+                    >
+                      Edit
+                    </Button>
                   </td>
                   <td>
-                    {element.status !== "pending" && (
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() =>
-                          props.deleteAppointment(element.id, element)
-                        }
-                        disabled={element.status === "completed"}
-                      >
-                        Delete
-                      </Button>
-                    )}
-                    {element.status === "pending" && (
-                      <Button
-                        variant="outline-danger"
-                        onClick={() =>
-                          props.deleteAppointment(element.id, element)
-                        }
-                        disabled={element.status === "completed"}
-                      >
-                        Delete
-                      </Button>
-                    )}
+                    <Button
+                      variant={
+                        element.status === "pending"
+                          ? "outline-danger"
+                          : "outline-secondary"
+                      }
+                      onClick={() =>
+                        props.deleteAppointment(element.id, element)
+                      }
+                      disabled={element.status === "completed"}
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               );
