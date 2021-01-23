@@ -17,13 +17,19 @@ import {
 import { Link } from "react-router-dom";
 import Appointments from "../GP/Tabs/Appointments";
 import { BACKEND_URL_APPOINTMENTS } from "../Constant";
+import Image from 'react-bootstrap/Image'
+import vmslogo from '../../../src/vmslogo.png'
 
 export default function PTDashboard(props) {
   // const [thisUser, setThisUser] = useState(true);
   // const [patients, setPatients] = useState([]);
-  // const [edit, setEdit] = useState(null);
+  const [toggle, setToggle] = useState(false);
   const [appointments, setAppointments] = useState([]);
+  const [modalShow, setModalShow] = React.useState(false);
 
+
+
+  //Now we Create the functions from here
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("ptoken"));
     if (!token) {
@@ -48,6 +54,7 @@ export default function PTDashboard(props) {
     }
   }, []);
 
+
   const deleteAppointment = (id, info) => {
     console.log(id);
     console.log(info);
@@ -63,38 +70,52 @@ export default function PTDashboard(props) {
     props.history.push("/patient");
   };
 
-  const [modalShow, setModalShow] = React.useState(false);
+  const check = (event) => {
+    event.preventDefault();
+    console.log(toggle);
+  }
+
+
 
   //Patient Dashboard
   return (
     <div className="App mt-5">
       {/* Navigation Bar */}
-      <Navbar bg="primary" variant="dark">
+      <Navbar className="text-white" style={{ backgroundColor: "#1c1f54ff" }} variant="dark">
         <Navbar.Brand href="#home">My Profile</Navbar.Brand>
 
         <Nav className="mr-auto">
           <Link to="/patient/appointment">
-            <Nav.Link href="#myAppointments">My Appointments</Nav.Link>
+            <Nav.Link href="#myAppointments">New Appointment</Nav.Link>
           </Link>
           <Link to="">
             <Nav.Link href="#logout">logout</Nav.Link>
           </Link>
         </Nav>
 
-        <Form inline>
+        <Image src={vmslogo} style={{ height: "50px" }} />
+
+
+
+
+
+
+        {/* THIS SEARCH BUTTON IS FOR TESTNG PURPOSES */}
+        {/* <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-light">Search</Button>
-        </Form>
+          <Button variant="outline-light" onClick={(event) => check(event)} >Search</Button>
+        </Form> */}
+
       </Navbar>
 
       {/* Creating continers for the contents */}
 
       <Container fluid>
-        {/* 1st row */}
+        {/* -----------------------------------UPCOMING APPOINTMENT-------------------------------- */}
         <Row className="m-3">
           <Col>
-            <Card border="success" style={{ width: "Auto" }}>
-              <Card.Header bg="success" text="white">Upcoming Appointments</Card.Header>
+            <Card style={{ width: "Auto", border: " 1px solid #375efc" }}>
+              <Card.Header className="text-white" style={{ backgroundColor: "#375efc" }} >Upcoming Appointments</Card.Header>
               <Card.Body>
                 <Table striped bordered hover>
                   <thead>
@@ -126,22 +147,27 @@ export default function PTDashboard(props) {
           </Col>
         </Row>
 
-        {/* 2nd row - Health checkup */}
+        {/* --------------------------------------HEALTH CHECKUP-------------------------------------- */}
         <Row className="m-3">
           <Col>
-            <Card border="warning" style={{ width: "Auto" }}>
-              <Card.Header bg="warning">Health Checkup!</Card.Header>
+            <Card border="warning" >
+              <Card.Header className={!toggle ? "bg-warning" : "bg-success"}>Health Checkup!</Card.Header>
 
               <Card.Body>
                 <Card.Text>Update your daily progress!</Card.Text>
 
-                <Button variant="warning" onClick={() => setModalShow(true)}>
-                  Start
+                <Button variant={!toggle ? "warning" : "success"} onClick={() => setModalShow(true)}>
+                  {!toggle ? "start" : "completed"}
                 </Button>
 
                 <HealthCheckUpModal
                   show={modalShow}
                   onHide={() => setModalShow(false)}
+                  alter={(event) => {
+                    event.preventDefault()
+                    setToggle(!toggle)
+                    setModalShow(false)
+                  }}
                 />
               </Card.Body>
             </Card>
@@ -149,7 +175,7 @@ export default function PTDashboard(props) {
 
           <Col>
             <Card border="danger" style={{ width: "Auto" }}>
-              <Card.Header bg="danger" text="white">Emergency Hotlines!</Card.Header>
+              <Card.Header className="bg-danger" text="white">Emergency Hotlines!</Card.Header>
 
               <Card.Body>
                 <Card.Text>Reach out to an officer!</Card.Text>
@@ -159,16 +185,16 @@ export default function PTDashboard(props) {
           </Col>
         </Row>
 
-        {/* 3rd Row */}
+        {/* ----------------------------USEFUL INFORMATION-------------------------*/}
         <Row className="m-3">
           <Col>
-            <Card border="info" style={{ width: "Auto" }}>
-              <Card.Header bg="info" text="white">Useful Information</Card.Header>
+            <Card style={{ width: "Auto", border: " 1px solid #375efc" }}>
+              <Card.Header className="text-white" style={{ backgroundColor: "#375efc" }} >Useful Information</Card.Header>
               <Card.Body className="m-2">
                 <Accordion className="m-1">
                   <Card>
                     <Card.Header bg="info" text="white">
-                      <Accordion.Toggle as={Button} text="white" eventKey="0">
+                      <Accordion.Toggle as={Link} text="white" eventKey="0">
                         Vaccination side effects!
                       </Accordion.Toggle>
                     </Card.Header>
@@ -184,26 +210,6 @@ export default function PTDashboard(props) {
                   </Card>
                 </Accordion>
 
-                {/* <Accordion className="m-1">
-                                    <Card>
-
-                                        <Card.Header>
-                                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                                Good hygeine practices!
-                                            </Accordion.Toggle>
-                                        </Card.Header>
-                                        <Accordion.Collapse eventKey="0">
-                                            <Card.Body>
-                                                <li>Vommitting</li>
-                                                <li>Nausea</li>
-                                                <li>Pain</li>
-                                                <li>Breathlessness</li>
-                                                <li>Panic</li>
-                                            </Card.Body>
-                                        </Accordion.Collapse>
-                                    </Card>
-
-                                </Accordion> */}
               </Card.Body>
             </Card>
           </Col>
@@ -383,16 +389,21 @@ function HealthCheckUpModal(props) {
 
           <Form.Group as={Row}>
             <Col sm={{ span: 10, offset: 2 }}>
-              <Button type="submit" onClick={props.onHide}>
+
+              <Button type="submit" onClick={(event) => props.alter(event)}>
                 Submit
               </Button>
+
             </Col>
           </Form.Group>
         </Form>
+
       </Modal.Body>
+
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
+
     </Modal>
   );
 }
