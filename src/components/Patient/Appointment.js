@@ -43,6 +43,7 @@ export default function Appointment(props) {
         let data = {
           pid: info.pid,
           name: info.name,
+          phoneNumber: info.phoneNumber,
           vaccineType: vaccineType,
           date: date,
           gpid: gpid,
@@ -65,7 +66,6 @@ export default function Appointment(props) {
             }
           });
       });
-
     }
   };
 
