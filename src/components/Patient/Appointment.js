@@ -8,6 +8,7 @@ export default function Appointment(props) {
   const [date, setDate] = useState("");
   const [gps, setGps] = useState([]);
   const [gpid, setGpid] = useState("");
+  const [clinicName, setClinicName] = useState('');
 
   useEffect(() => {
     let token = localStorage.getItem("ptoken");
@@ -37,30 +38,34 @@ export default function Appointment(props) {
     if (!date || !vaccineType || !gpid) {
       alert("Please fill in required field!");
     } else {
-      let info = JSON.parse(localStorage.getItem("ptoken"));
-      let data = {
-        pid: info.pid,
-        name: info.name,
-        vaccineType: vaccineType,
-        date: date,
-        gpid: gpid,
-      };
-      axios
-        .post(`${BACKEND_URL_APPOINTMENTS}/create`, data)
-        .then((response) => {
-          console.log(response);
-          alert(response.data.message);
-          props.history.push("/patient/dashboard");
-        })
-        .catch((err) => {
-          if (!err.response) {
-            console.log(err);
-          } else if (!err.response.data) {
-            console.log(err.response);
-          } else {
-            alert(err.response.data.message);
-          }
-        });
+      axios.get(`${BACKEND_URL_GPS}/id/${gpid}`).then((res) => {
+        let info = JSON.parse(localStorage.getItem("ptoken"));
+        let data = {
+          pid: info.pid,
+          name: info.name,
+          vaccineType: vaccineType,
+          date: date,
+          gpid: gpid,
+          clinicName: res.data[0].clinicName
+        };
+        axios
+          .post(`${BACKEND_URL_APPOINTMENTS}/create`, data)
+          .then((response) => {
+            console.log(response);
+            alert(response.data.message);
+            props.history.push("/patient/dashboard");
+          })
+          .catch((err) => {
+            if (!err.response) {
+              console.log(err);
+            } else if (!err.response.data) {
+              console.log(err.response);
+            } else {
+              alert(err.response.data.message);
+            }
+          });
+      });
+
     }
   };
 

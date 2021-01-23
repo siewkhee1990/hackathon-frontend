@@ -115,7 +115,7 @@ export default function PTDashboard(props) {
 
                           <td>{element.vaccineType}</td>
 
-                          <td>{element.gpid}</td>
+                          <td>{element.clinicName}</td>
                         </tr>
                       );
                     })}
