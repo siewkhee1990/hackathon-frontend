@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BACKEND_URL_APPOINTMENTS } from "../Constant";
-import { Button, Form, Tabs, Tab, Table } from "react-bootstrap";
+import { Button, Tabs, Tab } from "react-bootstrap";
 import CheckingIn from "./Tabs/CheckingIn";
 import Appointments from "./Tabs/Appointments";
 import Edit from "./Tabs/Edit";
