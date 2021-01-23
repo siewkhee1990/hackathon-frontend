@@ -12,26 +12,27 @@ export default function PatientLogin(props) {
     event.preventDefault();
     if (!email || !password) {
       alert("Please key in required field!");
+    } else {
+      let data = {
+        email: email,
+        password: password,
+      };
+      axios
+        .post(`${BACKEND_URL_PATIENTS}/login`, data)
+        .then((response) => {
+          localStorage.setItem("ptoken", JSON.stringify(response.data.ptoken));
+          props.history.push("/patient/dashboard");
+        })
+        .catch((err) => {
+          if (!err.response) {
+            console.log(err);
+          } else if (!err.response.data) {
+            console.log(err.response);
+          } else {
+            alert(err.response.data.message);
+          }
+        });
     }
-    let data = {
-      email: email,
-      password: password,
-    };
-    axios
-      .post(`${BACKEND_URL_PATIENTS}/login`, data)
-      .then((response) => {
-        localStorage.setItem("ptoken", JSON.stringify(response.data.ptoken));
-        props.history.push("/patient/dashboard");
-      })
-      .catch((err) => {
-        if (!err.response) {
-          console.log(err);
-        } else if (!err.response.data) {
-          console.log(err.response);
-        } else {
-          alert(err.response.data.message);
-        }
-      });
   };
 
   return (
