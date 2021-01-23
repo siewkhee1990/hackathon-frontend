@@ -37,7 +37,7 @@ function GPRegister(props) {
         })
         .catch((error) => {
           if (!error.response.data.message) {
-            console.log(err.response);
+            console.log(error.response);
           } else {
             alert(error.response.data.message);
           }
