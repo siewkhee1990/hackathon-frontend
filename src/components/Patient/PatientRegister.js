@@ -25,7 +25,9 @@ function PatientRegister(props) {
         proceeding with the registration.`);
         })
         .catch((error) => {
-          if (!error.response.data.message) {
+          if (!error.response) {
+            console.log(error);
+          } else if (!error.response.data) {
             console.log(error.response);
           } else {
             alert(error.response.data.message);
@@ -58,7 +60,9 @@ function PatientRegister(props) {
           props.history.push("/patient");
         })
         .catch((error) => {
-          if (!error.response.data.message) {
+          if (!error.response) {
+            console.log(error);
+          } else if (!error.response.data) {
             console.log(error.response);
           } else {
             alert(error.response.data.message);

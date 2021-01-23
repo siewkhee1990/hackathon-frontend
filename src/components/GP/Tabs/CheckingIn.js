@@ -22,13 +22,21 @@ export default function CheckingIn(props) {
       alert("Please enter required field!");
     } else {
       axios
-        .put(`${BACKEND_URL_APPOINTMENTS}/${id}/status/completed`)
+        .put(`${BACKEND_URL_APPOINTMENTS}/id/${id}/status/completed`)
         .then((response) => {
           console.log(response);
-          props.setUpdate(!props.update);
+          alert(response.data.message);
+          setNRIC("");
+          setID("");
+          setName("");
+          setAppointmentDate("");
+          setAppointment("");
+          props.toggleUpdate();
         })
         .catch((err) => {
-          if (!err.response.data.message) {
+          if (!err.response) {
+            console.log(err);
+          } else if (!err.response.data) {
             console.log(err.response);
           } else {
             alert(err.response.data.message);
@@ -57,7 +65,9 @@ export default function CheckingIn(props) {
             }
           })
           .catch((err) => {
-            if (!err.response.data.message) {
+            if (!err.response) {
+              console.log(err);
+            } else if (!err.response.data) {
               console.log(err.response);
             } else {
               alert(err.response.data.message);
@@ -69,9 +79,7 @@ export default function CheckingIn(props) {
   return (
     <>
       <Form onSubmit={(event) => checkIn(event)} className="m-3">
-        <p>
-          <h2>Key in</h2>
-        </p>
+        <h2>Key in</h2>
         <Form.Group controlId="nric">
           <Form.Label>NRIC / FIN</Form.Label>
           <Form.Control
@@ -88,9 +96,7 @@ export default function CheckingIn(props) {
             fetch info
           </Button>
         </Form.Group>
-        <p>
-          <h2>-------------------- Or --------------------</h2>
-        </p>
+        <h2>-------------------- Or --------------------</h2>
         <Form.Group controlId="id">
           <Form.Label>Appointment ID</Form.Label>
           <Form.Control

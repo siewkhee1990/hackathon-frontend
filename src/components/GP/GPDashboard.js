@@ -29,11 +29,12 @@ export default function GPDashboard(props) {
       axios
         .get(`${BACKEND_URL_APPOINTMENTS}/gpid/${thisUser.gpid}`)
         .then((response) => {
-          console.log(response);
           setAppointments(response.data);
         })
         .catch((err) => {
-          if (!err.response.data.message) {
+          if (!err.response) {
+            console.log(err);
+          } else if (!err.response.data) {
             console.log(err.response);
           } else {
             alert(err.response.data.message);
@@ -41,6 +42,10 @@ export default function GPDashboard(props) {
         });
     }
   }, [thisUser, update]);
+
+  const toggleUpdate = () => {
+    setUpdate(!update);
+  };
 
   const deleteAppointment = (id, info) => {
     console.log(id);
@@ -68,7 +73,9 @@ export default function GPDashboard(props) {
           setUpdate(!update);
         })
         .catch((err) => {
-          if (!err.response.data.message) {
+          if (!err.response) {
+            console.log(err);
+          } else if (!err.response.data) {
             console.log(err.response);
           } else {
             alert(err.response.data.message);
@@ -99,15 +106,9 @@ export default function GPDashboard(props) {
           <Tab eventKey="gpinfo" title="GP Info">
             <h1 className="m-5">My Clinic's Info</h1>
             <div className="mx-5 text-left">
-              <p>
-                <h2>Name: {thisUser.clinicName}</h2>
-              </p>
-              <p>
-                <h4>Address: {thisUser.address}</h4>
-              </p>
-              <p>
-                <h4>E-mail: {thisUser.email}</h4>
-              </p>
+              <h2>Name: {thisUser.clinicName}</h2>
+              <h4>Address: {thisUser.address}</h4>
+              <h4>E-mail: {thisUser.email}</h4>
             </div>
           </Tab>
         )}
@@ -124,7 +125,7 @@ export default function GPDashboard(props) {
         </Tab>
 
         <Tab eventKey="checkin" title="Check Patient In">
-          <CheckingIn update={update} setUpdate={setUpdate} />
+          <CheckingIn toggleUpdate={toggleUpdate} />
         </Tab>
 
         {edit && thisUser && (

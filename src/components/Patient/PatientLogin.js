@@ -24,7 +24,9 @@ export default function PatientLogin(props) {
         props.history.push("/patient/dashboard");
       })
       .catch((err) => {
-        if (!err.response.data.message) {
+        if (!err.response) {
+          console.log(err);
+        } else if (!err.response.data) {
           console.log(err.response);
         } else {
           alert(err.response.data.message);

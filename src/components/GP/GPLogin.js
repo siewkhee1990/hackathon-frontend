@@ -24,7 +24,9 @@ export default function GPLogin(props) {
         props.history.push("/gp/dashboard");
       })
       .catch((err) => {
-        if (!err.response.data.message) {
+        if (!err.response) {
+          console.log(err);
+        } else if (!err.response.data) {
           console.log(err.response);
         } else {
           alert(err.response.data.message);

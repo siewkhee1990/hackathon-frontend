@@ -36,7 +36,9 @@ function GPRegister(props) {
           props.history.push("/gp");
         })
         .catch((error) => {
-          if (!error.response.data.message) {
+          if (!error.response) {
+            console.log(error);
+          } else if (!error.response.data) {
             console.log(error.response);
           } else {
             alert(error.response.data.message);
