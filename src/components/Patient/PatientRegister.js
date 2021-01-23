@@ -38,9 +38,13 @@ function PatientRegister(props) {
 
   const register = (event) => {
     event.preventDefault();
-    if (name === "" || email === "" || password.length !== 8) {
-      alert("Please fill in required fields correctly!");
-    } else if (password === confirmPassword) {
+    if (!name || !email || !password) {
+      alert("Please fill in required fields!");
+    } else if (password.length < 8) {
+      alert("Please enter at least 8 characters in password field!");
+    } else if (password !== confirmPassword) {
+      alert("Confirm password not match!");
+    } else {
       axios
         .post(`${BACKEND_URL_PATIENTS}/create`, {
           name: name,
@@ -60,8 +64,6 @@ function PatientRegister(props) {
             alert(error.response.data.message);
           }
         });
-    } else {
-      alert("Confirm password and password not matched!");
     }
   };
 

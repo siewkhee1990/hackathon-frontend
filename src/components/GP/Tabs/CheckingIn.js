@@ -26,23 +26,35 @@ export default function CheckingIn(props) {
         .then((response) => {
           console.log(response);
           props.setUpdate(!props.update);
+        })
+        .catch((err) => {
+          if (!err.response.data.message) {
+            console.log(err.response);
+          } else {
+            alert(err.response.data.message);
+          }
         });
     }
   };
 
   const fetchData = (event) => {
     event.preventDefault();
+    let { gpid } = JSON.parse(localStorage.getItem("gptoken"));
     if (!NRIC) {
       alert("Please enter NRIC to use this feature!");
     } else {
       axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
         console.log(response);
-        let data = { email: NRIC + response.data.email };
         axios
-          .post(`${BACKEND_URL_APPOINTMENTS}/email`, data)
+          .get(
+            `${BACKEND_URL_APPOINTMENTS}/gpid/${gpid}/email/${response.data.email}`
+          )
           .then((response) => {
             console.log(response);
-            setAppointment(response.data[0]);
+            if (response.data.length === 1) {
+              setAppointment(response.data[0]);
+              alert("Appointment found!");
+            }
           })
           .catch((err) => {
             if (!err.response.data.message) {

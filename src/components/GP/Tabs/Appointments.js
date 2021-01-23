@@ -8,6 +8,7 @@ export default function Appointments(props) {
         <thead>
           <tr>
             <th>S/N</th>
+            <th>Appt. ID</th>
             <th>Patient Name</th>
             <th>Appointment Date</th>
             <th>Vaccive Type</th>
@@ -23,6 +24,7 @@ export default function Appointments(props) {
               return (
                 <tr key={index + 1}>
                   <td>{index + 1}</td>
+                  <td>{element.aid}</td>
                   <td>{element.name}</td>
                   <td>{element.date}</td>
                   <td>{element.vaccineType}</td>
