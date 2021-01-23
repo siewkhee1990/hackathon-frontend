@@ -94,7 +94,7 @@ export default function PTDashboard(props) {
         <Row className="m-3">
           <Col>
             <Card border="success" style={{ width: "Auto" }}>
-              <Card.Header>Upcoming Appointments</Card.Header>
+              <Card.Header bg="success" text="white">Upcoming Appointments</Card.Header>
               <Card.Body>
                 <Table striped bordered hover>
                   <thead>
@@ -115,7 +115,7 @@ export default function PTDashboard(props) {
 
                           <td>{element.vaccineType}</td>
 
-                          <td>{element.gpid}</td>
+                          <td>{element.clinicName}</td>
                         </tr>
                       );
                     })}
@@ -130,7 +130,7 @@ export default function PTDashboard(props) {
         <Row className="m-3">
           <Col>
             <Card border="warning" style={{ width: "Auto" }}>
-              <Card.Header>Health Checkup!</Card.Header>
+              <Card.Header bg="warning">Health Checkup!</Card.Header>
 
               <Card.Body>
                 <Card.Text>Update your daily progress!</Card.Text>
@@ -149,7 +149,7 @@ export default function PTDashboard(props) {
 
           <Col>
             <Card border="danger" style={{ width: "Auto" }}>
-              <Card.Header>Emergency Hotlines!</Card.Header>
+              <Card.Header bg="danger" text="white">Emergency Hotlines!</Card.Header>
 
               <Card.Body>
                 <Card.Text>Reach out to an officer!</Card.Text>
@@ -163,12 +163,12 @@ export default function PTDashboard(props) {
         <Row className="m-3">
           <Col>
             <Card border="info" style={{ width: "Auto" }}>
-              <Card.Header>Useful Information</Card.Header>
+              <Card.Header bg="info" text="white">Useful Information</Card.Header>
               <Card.Body className="m-2">
                 <Accordion className="m-1">
                   <Card>
-                    <Card.Header>
-                      <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                    <Card.Header bg="info" text="white">
+                      <Accordion.Toggle as={Button} text="white" eventKey="0">
                         Vaccination side effects!
                       </Accordion.Toggle>
                     </Card.Header>
