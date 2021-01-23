@@ -8,15 +8,6 @@ export default function PatientLogin(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    let info = JSON.parse(localStorage.getItem("ptoken"));
-    console.log(info);
-    console.log(!info);
-    if (info) {
-      console.log(info.pid);
-    }
-  }, []);
-
   const submitLogin = (event) => {
     event.preventDefault();
     if (!email || !password) {
@@ -26,10 +17,19 @@ export default function PatientLogin(props) {
       email: email,
       password: password,
     };
-    axios.post(`${BACKEND_URL_PATIENTS}/login`, data).then((response) => {
-      localStorage.setItem("ptoken", JSON.stringify(response.data.ptoken));
-      props.history.push("/patient/dashboard");
-    });
+    axios
+      .post(`${BACKEND_URL_PATIENTS}/login`, data)
+      .then((response) => {
+        localStorage.setItem("ptoken", JSON.stringify(response.data.ptoken));
+        props.history.push("/patient/dashboard");
+      })
+      .catch((err) => {
+        if (!err.response.data.message) {
+          console.log(err.response);
+        } else {
+          alert(err.response.data.message);
+        }
+      });
   };
 
   return (

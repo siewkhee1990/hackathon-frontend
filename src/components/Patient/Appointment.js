@@ -15,9 +15,18 @@ export default function Appointment(props) {
       alert("Please login to make an appointment!");
       props.history.push("/patient");
     } else {
-      axios.get(`${BACKEND_URL_GPS}`).then((response) => {
-        setGps(response.data);
-      });
+      axios
+        .get(`${BACKEND_URL_GPS}`)
+        .then((response) => {
+          setGps(response.data);
+        })
+        .catch((err) => {
+          if (!err.response.data.message) {
+            console.log(err.response);
+          } else {
+            alert(err.response.data.message);
+          }
+        });
     }
   }, []);
 
@@ -29,6 +38,7 @@ export default function Appointment(props) {
       let info = JSON.parse(localStorage.getItem("ptoken"));
       let data = {
         pid: info.pid,
+        name: info.name,
         vaccineType: vaccineType,
         date: date,
         gpid: gpid,
@@ -41,8 +51,11 @@ export default function Appointment(props) {
           props.history.push("/patient/dashboard");
         })
         .catch((err) => {
-          console.log(err.response);
-          alert(err.response.data.message);
+          if (!err.response.data.message) {
+            console.log(err.response);
+          } else {
+            alert(err.response.data.message);
+          }
         });
     }
   };

@@ -14,14 +14,23 @@ function PatientRegister(props) {
   const fetchData = (event) => {
     event.preventDefault();
     if (NRIC !== "") {
-      axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
-        setName(response.data.name);
-        setEmail(response.data.email);
-        setPhoneNumber(response.data.phoneNumber);
-        alert(`Your information has been successfully fetched.
+      axios
+        .get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`)
+        .then((response) => {
+          setName(response.data.name);
+          setEmail(response.data.email);
+          setPhoneNumber(response.data.phoneNumber);
+          alert(`Your information has been successfully fetched.
         Please ensure that all the details are correct before 
         proceeding with the registration.`);
-      });
+        })
+        .catch((error) => {
+          if (!error.response.data.message) {
+            console.log(error.response);
+          } else {
+            alert(error.response.data.message);
+          }
+        });
     } else {
       alert("Please enter your NRIC/FIN.");
     }
@@ -45,7 +54,11 @@ function PatientRegister(props) {
           props.history.push("/patient");
         })
         .catch((error) => {
-          console.log(error.response);
+          if (!error.response.data.message) {
+            console.log(error.response);
+          } else {
+            alert(error.response.data.message);
+          }
         });
     } else {
       alert("Confirm password and password not matched!");

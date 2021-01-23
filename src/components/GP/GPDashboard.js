@@ -31,6 +31,13 @@ export default function GPDashboard(props) {
         .then((response) => {
           console.log(response);
           setAppointments(response.data);
+        })
+        .catch((err) => {
+          if (!err.response.data.message) {
+            console.log(err.response);
+          } else {
+            alert(err.response.data.message);
+          }
         });
     }
   }, [thisUser, update]);
@@ -60,7 +67,13 @@ export default function GPDashboard(props) {
           setEdit(null);
           setUpdate(!update);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (!err.response.data.message) {
+            console.log(err.response);
+          } else {
+            alert(err.response.data.message);
+          }
+        });
     }
   };
 

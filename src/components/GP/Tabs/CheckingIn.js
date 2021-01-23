@@ -45,8 +45,9 @@ export default function CheckingIn(props) {
             setAppointment(response.data[0]);
           })
           .catch((err) => {
-            console.log(err.response);
-            if (err.response.status === 404) {
+            if (!err.response.data.message) {
+              console.log(err.response);
+            } else {
               alert(err.response.data.message);
             }
           });

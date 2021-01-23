@@ -36,7 +36,11 @@ function GPRegister(props) {
           props.history.push("/gp");
         })
         .catch((error) => {
-          alert(error.response.data.message);
+          if (!error.response.data.message) {
+            console.log(err.response);
+          } else {
+            alert(error.response.data.message);
+          }
         });
     } else {
       alert("Confirm password and password not matched!");

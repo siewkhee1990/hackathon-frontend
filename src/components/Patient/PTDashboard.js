@@ -35,6 +35,13 @@ export default function PTDashboard(props) {
         .then((response) => {
           console.log(response);
           setAppointments(response.data);
+        })
+        .catch((error) => {
+          if (!error.response.data.message) {
+            console.log(error.response);
+          } else {
+            alert(error.response.data.message);
+          }
         });
     }
   }, []);
