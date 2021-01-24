@@ -25,7 +25,8 @@ export default function CheckingIn(props) {
         .put(`${BACKEND_URL_APPOINTMENTS}/id/${id}/status/completed`)
         .then((response) => {
           console.log(response);
-          alert(response.data.message);
+          props.setToastSuccess(true);
+          props.setSuccessMessage(response.data.message);
           setNRIC("");
           setID("");
           setName("");
@@ -34,12 +35,15 @@ export default function CheckingIn(props) {
           props.toggleUpdate();
         })
         .catch((err) => {
+          props.setToastError(true);
           if (!err.response) {
             console.log(err);
+            props.setErrorMessage(err);
           } else if (!err.response.data) {
             console.log(err.response);
+            props.setErrorMessage(err.response);
           } else {
-            alert(err.response.data.message);
+            props.setErrorMessage(err.response.data.message);
           }
         });
     }
@@ -49,7 +53,8 @@ export default function CheckingIn(props) {
     event.preventDefault();
     let { gpid } = JSON.parse(localStorage.getItem("gptoken"));
     if (!NRIC) {
-      alert("Please enter NRIC to use this feature!");
+      props.setToastError(true);
+      props.setErrorMessage("Please enter NRIC to use this feature!");
     } else {
       axios.get(`${BACKEND_URL_PATIENTS}/fetch/${NRIC}`).then((response) => {
         console.log(response);
@@ -61,16 +66,20 @@ export default function CheckingIn(props) {
             console.log(response);
             if (response.data.length === 1) {
               setAppointment(response.data[0]);
-              alert("Appointment found!");
+              props.setToastSuccess(true);
+              props.setSuccessMessage("Appointment found!");
             }
           })
           .catch((err) => {
+            props.setToastError(true);
             if (!err.response) {
               console.log(err);
+              props.setErrorMessage(err);
             } else if (!err.response.data) {
               console.log(err.response);
+              props.setErrorMessage(err.response);
             } else {
-              alert(err.response.data.message);
+              props.setErrorMessage(err.response.data.message);
             }
           });
       });
