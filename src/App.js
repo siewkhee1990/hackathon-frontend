@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import Testing from "./components/Testing";
 import Main from "./components/Main";
 import PatientLogin from "./components/Patient/PatientLogin";
 import PatientRegister from "./components/Patient/PatientRegister";
@@ -44,7 +43,6 @@ function App() {
         toastError={toastError}
         setToastError={setToastError}
       />
-      <Testing />
       <Switch>
         <Route exact path="/" component={Main} />
         <Route
