@@ -1,3 +1,4 @@
+//------------------------------------------- IMPORTS ----------------------------------------------------
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
@@ -20,14 +21,20 @@ import { BACKEND_URL_APPOINTMENTS } from "../Constant";
 import Image from "react-bootstrap/Image";
 import vmslogo from "../../../src/vmslogo.png";
 
+
 export default function PTDashboard(props) {
-  // const [thisUser, setThisUser] = useState(true);
-  // const [patients, setPatients] = useState([]);
+
+  //--------------------------------------------- VARIABLES -----------------------------------------------
   const [toggle, setToggle] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const [modalShow, setModalShow] = React.useState(false);
 
-  //Now we Create the functions from here
+
+
+
+  //--------------------------------------------- FUNCTIONS -----------------------------------------------
+
+  //--- Retrieval Function ---
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("ptoken"));
     if (!token) {
@@ -53,36 +60,40 @@ export default function PTDashboard(props) {
     }
   }, []);
 
+
+  //--- Appointment Deletion Function ---
   const deleteAppointment = (id, info) => {
     console.log(id);
     console.log(info);
   };
 
+  //--- Patient Checkin Function ---
   const checkIn = (event) => {
     event.preventDefault();
   };
 
+  //--- Logout Function ---
   const logout = (event) => {
     event.preventDefault();
     localStorage.removeItem("ptoken");
     props.history.push("/patient");
   };
 
+  //--- Health Checkup Toggle Function ---
   const check = (event) => {
     event.preventDefault();
     console.log(toggle);
   };
 
-  //Patient Dashboard
+  //--------------------------------------- PATIENT DASHBOARD DESIGN BEGINS NOW!!! ----------------------------------
   return (
     <div className="App mt-5">
-      {/* Navigation Bar */}
-      <Navbar
-        className="text-white"
-        style={{ backgroundColor: "#1c1f54ff" }}
-        variant="dark"
-      >
-        <Navbar.Brand href="#home">My Profile</Navbar.Brand>
+
+
+      {/*---------------------------------- NAVIGATION BAR -----------------------------------------*/}
+      <Navbar className="text-white" style={{ backgroundColor: "#1c1f54ff" }} variant="dark">
+        <Navbar.Brand href="#home">My Dashboard</Navbar.Brand>
+
 
         <Nav className="mr-auto">
           <Link to="/patient/appointment">
@@ -94,18 +105,14 @@ export default function PTDashboard(props) {
         </Nav>
 
         <Image src={vmslogo} style={{ height: "50px" }} />
-
-        {/* THIS SEARCH BUTTON IS FOR TESTNG PURPOSES */}
-        {/* <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-light" onClick={(event) => check(event)} >Search</Button>
-        </Form> */}
       </Navbar>
 
-      {/* Creating continers for the contents */}
+
+      {/* Creating the containers in Patient Dashboard */}
 
       <Container fluid>
-        {/* -----------------------------------UPCOMING APPOINTMENT-------------------------------- */}
+
+        {/* ----------------------------------- UPCOMING APPOINTMENT ------------------------------- */}
         <Row className="m-3">
           <Col>
             <Card style={{ width: "Auto", border: " 1px solid #375efc" }}>
@@ -130,11 +137,8 @@ export default function PTDashboard(props) {
                       return (
                         <tr key={element.aid} id={element.aid}>
                           <td>{element.aid}</td>
-
                           <td>{element.date}</td>
-
                           <td>{element.vaccineType}</td>
-
                           <td>{element.clinicName}</td>
                         </tr>
                       );
@@ -145,14 +149,17 @@ export default function PTDashboard(props) {
             </Card>
           </Col>
         </Row>
+        
 
-        {/* --------------------------------------HEALTH CHECKUP-------------------------------------- */}
+        {/* -------------------------------------- HEALTH CHECKUP -------------------------------------- */}
         <Row className="m-3">
           <Col>
+
             <Card border="warning">
               <Card.Header className={!toggle ? "bg-warning" : "bg-success"}>
                 Health Checkup!
               </Card.Header>
+
 
               <Card.Body>
                 <Card.Text>Update your daily progress!</Card.Text>
@@ -413,3 +420,17 @@ function HealthCheckUpModal(props) {
     </Modal>
   );
 }
+
+//------------------------------------------------REFERENCES--------------------------------------------------
+// 1. Brand color: #1c1f54ff - Background, "#375efc" - Syringe, 
+
+
+
+
+//FOR TESTING PURPOSES!!!
+
+{/* THIS SEARCH BUTTON IS FOR TESTNG PURPOSES */ }
+{/* <Form inline>
+          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+          <Button variant="outline-light" onClick={(event) => check(event)} >Search</Button>
+        </Form> */}
