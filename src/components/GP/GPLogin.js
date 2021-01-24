@@ -13,29 +13,33 @@ export default function GPLogin(props) {
     if (!email || !password) {
       props.setToastError(true);
       props.setErrorMessage("Please key in required field!");
+    } else {
+      let data = {
+        email: email,
+        password: password,
+      };
+      axios
+        .post(`${BACKEND_URL_GPS}/login`, data)
+        .then((response) => {
+          localStorage.setItem(
+            "gptoken",
+            JSON.stringify(response.data.gptoken)
+          );
+          props.history.push("/gp/dashboard");
+        })
+        .catch((err) => {
+          props.setToastError(true);
+          if (!err.response) {
+            console.log(err);
+            props.setErrorMessage(err);
+          } else if (!err.response.data) {
+            console.log(err.response);
+            props.setErrorMessage(err.response);
+          } else {
+            props.setErrorMessage(err.response.data.message);
+          }
+        });
     }
-    let data = {
-      email: email,
-      password: password,
-    };
-    axios
-      .post(`${BACKEND_URL_GPS}/login`, data)
-      .then((response) => {
-        localStorage.setItem("gptoken", JSON.stringify(response.data.gptoken));
-        props.history.push("/gp/dashboard");
-      })
-      .catch((err) => {
-        props.setToastError(true);
-        if (!err.response) {
-          console.log(err);
-          props.setErrorMessage(err);
-        } else if (!err.response.data) {
-          console.log(err.response);
-          props.setErrorMessage(err.response);
-        } else {
-          props.setErrorMessage(err.response.data.message);
-        }
-      });
   };
 
   return (
