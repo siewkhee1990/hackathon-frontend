@@ -11,7 +11,8 @@ export default function GPLogin(props) {
   const submitLogin = (event) => {
     event.preventDefault();
     if (!email || !password) {
-      alert("Please key in required field!");
+      props.setToastError(true);
+      props.setErrorMessage("Please key in required field!");
     }
     let data = {
       email: email,
@@ -24,12 +25,15 @@ export default function GPLogin(props) {
         props.history.push("/gp/dashboard");
       })
       .catch((err) => {
+        props.setToastError(true);
         if (!err.response) {
           console.log(err);
+          props.setErrorMessage(err);
         } else if (!err.response.data) {
           console.log(err.response);
+          props.setErrorMessage(err.response);
         } else {
-          alert(err.response.data.message);
+          props.setErrorMessage(err.response.data.message);
         }
       });
   };

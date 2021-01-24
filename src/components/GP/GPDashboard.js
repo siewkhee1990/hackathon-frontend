@@ -32,12 +32,15 @@ export default function GPDashboard(props) {
           setAppointments(response.data);
         })
         .catch((err) => {
+          props.setToastError(true);
           if (!err.response) {
             console.log(err);
+            props.setErrorMessage(err);
           } else if (!err.response.data) {
             console.log(err.response);
+            props.setErrorMessage(err.message);
           } else {
-            alert(err.response.data.message);
+            props.setErrorMessage(err.response.data.message);
           }
         });
     }
@@ -68,17 +71,21 @@ export default function GPDashboard(props) {
       axios
         .put(`${BACKEND_URL_APPOINTMENTS}/id/${id}/changeDate`, data)
         .then((response) => {
-          alert(response.data.message);
+          props.setToastSuccess(true);
+          props.setSuccessMessage(response.data.message);
           setEdit(null);
           setUpdate(!update);
         })
         .catch((err) => {
+          props.setToastError(true);
           if (!err.response) {
             console.log(err);
+            props.setErrorMessage(err);
           } else if (!err.response.data) {
             console.log(err.response);
+            props.setErrorMessage(err.response);
           } else {
-            alert(err.response.data.message);
+            props.setErrorMessage(err.response.data.message);
           }
         });
     }
@@ -96,10 +103,10 @@ export default function GPDashboard(props) {
       <Button
         variant="outline-danger"
         onClick={(event) => {
-          check(event);
+          logout(event);
         }}
       >
-        Check
+        Logout
       </Button>
       <Tabs defaultActiveKey="appointments" id="uncontrolled-tab-example">
         {thisUser && (
@@ -125,7 +132,13 @@ export default function GPDashboard(props) {
         </Tab>
 
         <Tab eventKey="checkin" title="Check Patient In">
-          <CheckingIn toggleUpdate={toggleUpdate} />
+          <CheckingIn
+            toggleUpdate={toggleUpdate}
+            setToastSuccess={props.setToastSuccess}
+            setToastError={props.setToastError}
+            setSuccessMessage={props.setSuccessMessage}
+            setErrorMessage={props.setErrorMessage}
+          />
         </Tab>
 
         {edit && thisUser && (
