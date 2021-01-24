@@ -22,12 +22,15 @@ export default function Appointment(props) {
           setGps(response.data);
         })
         .catch((err) => {
+          props.setToastError(true);
           if (!err.response) {
             console.log(err);
+            props.setErrorMessage(err);
           } else if (!err.response.data) {
             console.log(err.response);
+            props.setErrorMessage(err.response);
           } else {
-            alert(err.response.data.message);
+            props.setErrorMessage(err.response.data.message);
           }
         });
     }
@@ -36,7 +39,8 @@ export default function Appointment(props) {
   const createAppointment = (event) => {
     event.preventDefault();
     if (!date || !vaccineType || !gpid) {
-      alert("Please fill in required field!");
+      props.setToastError(true);
+      props.setErrorMessage("Please fill in required field!");
     } else {
       axios
         .get(`${BACKEND_URL_GPS}/id/${gpid}`)
@@ -54,27 +58,30 @@ export default function Appointment(props) {
           axios
             .post(`${BACKEND_URL_APPOINTMENTS}/create`, data)
             .then((response) => {
+              props.setToastSuccess(true);
               console.log(response);
-              alert(response.data.message);
+              props.setSuccessMessage(response.data.message);
               props.history.push("/patient/dashboard");
             })
             .catch((err) => {
+              props.setToastError(true);
               if (!err.response) {
-                console.log(err);
+                props.setErrorMessage(err);
               } else if (!err.response.data) {
-                console.log(err.response);
+                props.setErrorMessage(err.response);
               } else {
-                alert(err.response.data.message);
+                props.setErrorMessage(err.response.data.message);
               }
             });
         })
         .catch((err) => {
+          props.setToastError(true);
           if (!err.response) {
-            console.log(err);
+            props.setErrorMessage(err);
           } else if (!err.response.data) {
-            console.log(err.response);
+            props.setErrorMessage(err.response);
           } else {
-            alert(err.response.data.message);
+            props.setErrorMessage(err.response.data.message);
           }
         });
     }

@@ -20,32 +20,42 @@ function PatientRegister(props) {
           setName(response.data.name);
           setEmail(response.data.email);
           setPhoneNumber(response.data.phoneNumber);
-          alert(`Your information has been successfully fetched.
+          props.setToastSuccess(true);
+          props.setSuccessMessage(`Your information has been successfully fetched.
         Please ensure that all the details are correct before 
         proceeding with the registration.`);
         })
         .catch((error) => {
+          props.setToastError(true);
           if (!error.response) {
             console.log(error);
+            props.setErrorMessage(error);
           } else if (!error.response.data) {
             console.log(error.response);
+            props.setErrorMessage(error.message);
           } else {
-            alert(error.response.data.message);
+            props.setErrorMessage(error.response.data.message);
           }
         });
     } else {
-      alert("Please enter your NRIC/FIN.");
+      props.setToastError(true);
+      props.setErrorMessage("Please enter your NRIC/FIN.");
     }
   };
 
   const register = (event) => {
     event.preventDefault();
     if (!name || !email || !password) {
-      alert("Please fill in required fields!");
+      props.setToastError(true);
+      props.setErrorMessage("Please fill in required fields!");
     } else if (password.length < 8) {
-      alert("Please enter at least 8 characters in password field!");
+      props.setToastError(true);
+      props.setErrorMessage(
+        "Please enter at least 8 characters in password field!"
+      );
     } else if (password !== confirmPassword) {
-      alert("Confirm password not match!");
+      props.setToastError(true);
+      props.setErrorMessage("Confirm password not match!");
     } else {
       axios
         .post(`${BACKEND_URL_PATIENTS}/create`, {
@@ -55,17 +65,19 @@ function PatientRegister(props) {
           phoneNumber: phoneNumber,
         })
         .then((res) => {
+          props.setToastSuccess(true);
           console.log(res.data);
-          alert("Registeration successful");
+          props.setSuccessMessage("Registeration successful");
           props.history.push("/patient");
         })
         .catch((error) => {
+          props.setToastError(true);
           if (!error.response) {
-            console.log(error);
+            props.setErrorMessage(error);
           } else if (!error.response.data) {
-            console.log(error.response);
+            props.setErrorMessage(error.response);
           } else {
-            alert(error.response.data.message);
+            props.setErrorMessage(error.response.data.message);
           }
         });
     }

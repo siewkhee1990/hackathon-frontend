@@ -21,7 +21,8 @@ function GPRegister(props) {
       !confirmPassword ||
       !adminCode
     ) {
-      alert("Please fill in required field!");
+      props.setToastError(true);
+      props.setErrorMessage("Please fill in required field!");
     } else if (password === confirmPassword) {
       axios
         .post(`${BACKEND_URL_GPS}/create`, {
@@ -32,20 +33,25 @@ function GPRegister(props) {
           adminCode: adminCode,
         })
         .then((res) => {
-          alert(res.data.message);
+          props.setToastSuccess(true);
+          props.setSuccessMessage(res.data.message);
           props.history.push("/gp");
         })
         .catch((error) => {
+          props.setToastError(true);
           if (!error.response) {
             console.log(error);
+            props.setSuccessMessage(error);
           } else if (!error.response.data) {
             console.log(error.response);
+            props.setSuccessMessage(error.response);
           } else {
-            alert(error.response.data.message);
+            props.setSuccessMessage(error.response.data.message);
           }
         });
     } else {
-      alert("Confirm password and password not matched!");
+      props.setToastError(true);
+      props.setErrorMessage("Confirm password and password not matched!");
     }
   };
 

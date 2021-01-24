@@ -17,8 +17,8 @@ import {
 import { Link } from "react-router-dom";
 import Appointments from "../GP/Tabs/Appointments";
 import { BACKEND_URL_APPOINTMENTS } from "../Constant";
-import Image from 'react-bootstrap/Image'
-import vmslogo from '../../../src/vmslogo.png'
+import Image from "react-bootstrap/Image";
+import vmslogo from "../../../src/vmslogo.png";
 
 export default function PTDashboard(props) {
   // const [thisUser, setThisUser] = useState(true);
@@ -26,8 +26,6 @@ export default function PTDashboard(props) {
   const [toggle, setToggle] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const [modalShow, setModalShow] = React.useState(false);
-
-
 
   //Now we Create the functions from here
   useEffect(() => {
@@ -43,17 +41,17 @@ export default function PTDashboard(props) {
           setAppointments(response.data);
         })
         .catch((error) => {
+          props.setToastError(true);
           if (!error.response) {
-            console.log(error);
+            props.setErrorMessage(error);
           } else if (!error.response.data) {
-            console.log(error.response);
+            props.setErrorMessage(error.response);
           } else {
-            alert(error.response.data.message);
+            props.setErrorMessage(error.response.data.message);
           }
         });
     }
   }, []);
-
 
   const deleteAppointment = (id, info) => {
     console.log(id);
@@ -73,15 +71,17 @@ export default function PTDashboard(props) {
   const check = (event) => {
     event.preventDefault();
     console.log(toggle);
-  }
-
-
+  };
 
   //Patient Dashboard
   return (
     <div className="App mt-5">
       {/* Navigation Bar */}
-      <Navbar className="text-white" style={{ backgroundColor: "#1c1f54ff" }} variant="dark">
+      <Navbar
+        className="text-white"
+        style={{ backgroundColor: "#1c1f54ff" }}
+        variant="dark"
+      >
         <Navbar.Brand href="#home">My Profile</Navbar.Brand>
 
         <Nav className="mr-auto">
@@ -95,17 +95,11 @@ export default function PTDashboard(props) {
 
         <Image src={vmslogo} style={{ height: "50px" }} />
 
-
-
-
-
-
         {/* THIS SEARCH BUTTON IS FOR TESTNG PURPOSES */}
         {/* <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-light" onClick={(event) => check(event)} >Search</Button>
         </Form> */}
-
       </Navbar>
 
       {/* Creating continers for the contents */}
@@ -115,7 +109,12 @@ export default function PTDashboard(props) {
         <Row className="m-3">
           <Col>
             <Card style={{ width: "Auto", border: " 1px solid #375efc" }}>
-              <Card.Header className="text-white" style={{ backgroundColor: "#375efc" }} >Upcoming Appointments</Card.Header>
+              <Card.Header
+                className="text-white"
+                style={{ backgroundColor: "#375efc" }}
+              >
+                Upcoming Appointments
+              </Card.Header>
               <Card.Body>
                 <Table striped bordered hover>
                   <thead>
@@ -150,13 +149,18 @@ export default function PTDashboard(props) {
         {/* --------------------------------------HEALTH CHECKUP-------------------------------------- */}
         <Row className="m-3">
           <Col>
-            <Card border="warning" >
-              <Card.Header className={!toggle ? "bg-warning" : "bg-success"}>Health Checkup!</Card.Header>
+            <Card border="warning">
+              <Card.Header className={!toggle ? "bg-warning" : "bg-success"}>
+                Health Checkup!
+              </Card.Header>
 
               <Card.Body>
                 <Card.Text>Update your daily progress!</Card.Text>
 
-                <Button variant={!toggle ? "warning" : "success"} onClick={() => setModalShow(true)}>
+                <Button
+                  variant={!toggle ? "warning" : "success"}
+                  onClick={() => setModalShow(true)}
+                >
                   {!toggle ? "start" : "completed"}
                 </Button>
 
@@ -164,9 +168,9 @@ export default function PTDashboard(props) {
                   show={modalShow}
                   onHide={() => setModalShow(false)}
                   alter={(event) => {
-                    event.preventDefault()
-                    setToggle(!toggle)
-                    setModalShow(false)
+                    event.preventDefault();
+                    setToggle(!toggle);
+                    setModalShow(false);
                   }}
                 />
               </Card.Body>
@@ -175,7 +179,9 @@ export default function PTDashboard(props) {
 
           <Col>
             <Card border="danger" style={{ width: "Auto" }}>
-              <Card.Header className="bg-danger" text="white">Emergency Hotlines!</Card.Header>
+              <Card.Header className="bg-danger" text="white">
+                Emergency Hotlines!
+              </Card.Header>
 
               <Card.Body>
                 <Card.Text>Reach out to an officer!</Card.Text>
@@ -189,7 +195,12 @@ export default function PTDashboard(props) {
         <Row className="m-3">
           <Col>
             <Card style={{ width: "Auto", border: " 1px solid #375efc" }}>
-              <Card.Header className="text-white" style={{ backgroundColor: "#375efc" }} >Useful Information</Card.Header>
+              <Card.Header
+                className="text-white"
+                style={{ backgroundColor: "#375efc" }}
+              >
+                Useful Information
+              </Card.Header>
               <Card.Body className="m-2">
                 <Accordion className="m-1">
                   <Card>
@@ -209,7 +220,6 @@ export default function PTDashboard(props) {
                     </Accordion.Collapse>
                   </Card>
                 </Accordion>
-
               </Card.Body>
             </Card>
           </Col>
@@ -389,21 +399,17 @@ function HealthCheckUpModal(props) {
 
           <Form.Group as={Row}>
             <Col sm={{ span: 10, offset: 2 }}>
-
               <Button type="submit" onClick={(event) => props.alter(event)}>
                 Submit
               </Button>
-
             </Col>
           </Form.Group>
         </Form>
-
       </Modal.Body>
 
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
-
     </Modal>
   );
 }
