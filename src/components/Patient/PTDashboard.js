@@ -149,14 +149,14 @@ export default function PTDashboard(props) {
             </Card>
           </Col>
         </Row>
-        
+
 
         {/* -------------------------------------- HEALTH CHECKUP -------------------------------------- */}
         <Row className="m-3">
           <Col>
 
-            <Card border="warning">
-              <Card.Header className={!toggle ? "bg-warning" : "bg-success"}>
+            <Card border={!toggle ? "warning" : "success"}>
+              <Card.Header className={!toggle ? "bg-warning" : "bg-success text-white"}>
                 Health Checkup!
               </Card.Header>
 
@@ -186,7 +186,7 @@ export default function PTDashboard(props) {
 
           <Col>
             <Card border="danger" style={{ width: "Auto" }}>
-              <Card.Header className="bg-danger" text="white">
+              <Card.Header className="bg-danger text-white">
                 Emergency Hotlines!
               </Card.Header>
 

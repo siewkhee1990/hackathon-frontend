@@ -38,7 +38,11 @@ function GPRegister(props) {
           props.history.push("/gp");
         })
         .catch((error) => {
+          console.log(error.response.status);
           props.setToastError(true);
+
+          props.setErrorMessage("GP account exists in server!");
+
           if (!error.response) {
             console.log(error);
             props.setSuccessMessage(error);
