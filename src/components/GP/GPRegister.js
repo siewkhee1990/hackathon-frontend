@@ -38,19 +38,15 @@ function GPRegister(props) {
           props.history.push("/gp");
         })
         .catch((error) => {
-          console.log(error.response.status);
           props.setToastError(true);
-
-          props.setErrorMessage("GP account exists in server!");
-
           if (!error.response) {
             console.log(error);
-            props.setSuccessMessage(error);
+            props.setErrorMessage(error.message);
           } else if (!error.response.data) {
             console.log(error.response);
-            props.setSuccessMessage(error.response);
+            props.setErrorMessage(error.response.message);
           } else {
-            props.setSuccessMessage(error.response.data.message);
+            props.setErrorMessage(error.response.data.message);
           }
         });
     } else {

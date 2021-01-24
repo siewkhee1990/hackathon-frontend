@@ -25,10 +25,10 @@ export default function Appointment(props) {
           props.setToastError(true);
           if (!err.response) {
             console.log(err);
-            props.setErrorMessage(err);
+            props.setErrorMessage(err.message);
           } else if (!err.response.data) {
             console.log(err.response);
-            props.setErrorMessage(err.response);
+            props.setErrorMessage(err.response.message);
           } else {
             props.setErrorMessage(err.response.data.message);
           }
@@ -66,9 +66,11 @@ export default function Appointment(props) {
             .catch((err) => {
               props.setToastError(true);
               if (!err.response) {
-                props.setErrorMessage(err);
+                console.log(err);
+                props.setErrorMessage(err.message);
               } else if (!err.response.data) {
-                props.setErrorMessage(err.response);
+                console.log(err.response);
+                props.setErrorMessage(err.response.message);
               } else {
                 props.setErrorMessage(err.response.data.message);
               }
@@ -77,9 +79,11 @@ export default function Appointment(props) {
         .catch((err) => {
           props.setToastError(true);
           if (!err.response) {
-            props.setErrorMessage(err);
+            console.log(err);
+            props.setErrorMessage(err.message);
           } else if (!err.response.data) {
-            props.setErrorMessage(err.response);
+            console.log(err.response);
+            props.setErrorMessage(err.response.message);
           } else {
             props.setErrorMessage(err.response.data.message);
           }

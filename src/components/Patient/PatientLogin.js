@@ -27,9 +27,11 @@ export default function PatientLogin(props) {
         .catch((err) => {
           props.setToastError(true);
           if (!err.response) {
-            props.setErrorMessage(err);
+            console.log(err);
+            props.setErrorMessage(err.message);
           } else if (!err.response.data) {
-            props.setErrorMessage(err.response);
+            console.log(err.response);
+            props.setErrorMessage(err.response.message);
           } else {
             props.setErrorMessage(err.response.data.message);
           }

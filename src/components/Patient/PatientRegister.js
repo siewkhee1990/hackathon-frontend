@@ -29,10 +29,10 @@ function PatientRegister(props) {
           props.setToastError(true);
           if (!error.response) {
             console.log(error);
-            props.setErrorMessage(error);
+            props.setErrorMessage(error.message);
           } else if (!error.response.data) {
             console.log(error.response);
-            props.setErrorMessage(error.message);
+            props.setErrorMessage(error.response.message);
           } else {
             props.setErrorMessage(error.response.data.message);
           }
@@ -73,9 +73,11 @@ function PatientRegister(props) {
         .catch((error) => {
           props.setToastError(true);
           if (!error.response) {
-            props.setErrorMessage(error);
+            console.log(error);
+            props.setErrorMessage(error.message);
           } else if (!error.response.data) {
-            props.setErrorMessage(error.response);
+            console.log(error.response);
+            props.setErrorMessage(error.response.message);
           } else {
             props.setErrorMessage(error.response.data.message);
           }

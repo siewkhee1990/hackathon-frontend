@@ -21,16 +21,11 @@ import { BACKEND_URL_APPOINTMENTS } from "../Constant";
 import Image from "react-bootstrap/Image";
 import vmslogo from "../../../src/vmslogo.png";
 
-
 export default function PTDashboard(props) {
-
   //--------------------------------------------- VARIABLES -----------------------------------------------
   const [toggle, setToggle] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const [modalShow, setModalShow] = React.useState(false);
-
-
-
 
   //--------------------------------------------- FUNCTIONS -----------------------------------------------
 
@@ -50,16 +45,17 @@ export default function PTDashboard(props) {
         .catch((error) => {
           props.setToastError(true);
           if (!error.response) {
-            props.setErrorMessage(error);
+            console.log(error);
+            props.setErrorMessage(error.message);
           } else if (!error.response.data) {
-            props.setErrorMessage(error.response);
+            console.log(error.response);
+            props.setErrorMessage(error.response.message);
           } else {
             props.setErrorMessage(error.response.data.message);
           }
         });
     }
   }, []);
-
 
   //--- Appointment Deletion Function ---
   const deleteAppointment = (id, info) => {
@@ -88,12 +84,13 @@ export default function PTDashboard(props) {
   //--------------------------------------- PATIENT DASHBOARD DESIGN BEGINS NOW!!! ----------------------------------
   return (
     <div className="App mt-5">
-
-
       {/*---------------------------------- NAVIGATION BAR -----------------------------------------*/}
-      <Navbar className="text-white" style={{ backgroundColor: "#1c1f54ff" }} variant="dark">
+      <Navbar
+        className="text-white"
+        style={{ backgroundColor: "#1c1f54ff" }}
+        variant="dark"
+      >
         <Navbar.Brand href="#home">My Dashboard</Navbar.Brand>
-
 
         <Nav className="mr-auto">
           <Link to="/patient/appointment">
@@ -107,11 +104,9 @@ export default function PTDashboard(props) {
         <Image src={vmslogo} style={{ height: "50px" }} />
       </Navbar>
 
-
       {/* Creating the containers in Patient Dashboard */}
 
       <Container fluid>
-
         {/* ----------------------------------- UPCOMING APPOINTMENT ------------------------------- */}
         <Row className="m-3">
           <Col>
@@ -150,16 +145,15 @@ export default function PTDashboard(props) {
           </Col>
         </Row>
 
-
         {/* -------------------------------------- HEALTH CHECKUP -------------------------------------- */}
         <Row className="m-3">
           <Col>
-
             <Card border={!toggle ? "warning" : "success"}>
-              <Card.Header className={!toggle ? "bg-warning" : "bg-success text-white"}>
+              <Card.Header
+                className={!toggle ? "bg-warning" : "bg-success text-white"}
+              >
                 Health Checkup!
               </Card.Header>
-
 
               <Card.Body>
                 <Card.Text>Update your daily progress!</Card.Text>
@@ -422,15 +416,16 @@ function HealthCheckUpModal(props) {
 }
 
 //------------------------------------------------REFERENCES--------------------------------------------------
-// 1. Brand color: #1c1f54ff - Background, "#375efc" - Syringe, 
-
-
-
+// 1. Brand color: #1c1f54ff - Background, "#375efc" - Syringe,
 
 //FOR TESTING PURPOSES!!!
 
-{/* THIS SEARCH BUTTON IS FOR TESTNG PURPOSES */ }
-{/* <Form inline>
+{
+  /* THIS SEARCH BUTTON IS FOR TESTNG PURPOSES */
+}
+{
+  /* <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-light" onClick={(event) => check(event)} >Search</Button>
-        </Form> */}
+        </Form> */
+}

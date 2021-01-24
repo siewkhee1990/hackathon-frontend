@@ -38,10 +38,10 @@ export default function CheckingIn(props) {
           props.setToastError(true);
           if (!err.response) {
             console.log(err);
-            props.setErrorMessage(err);
+            props.setErrorMessage(err.message);
           } else if (!err.response.data) {
             console.log(err.response);
-            props.setErrorMessage(err.response);
+            props.setErrorMessage(err.response.message);
           } else {
             props.setErrorMessage(err.response.data.message);
           }
@@ -74,10 +74,10 @@ export default function CheckingIn(props) {
             props.setToastError(true);
             if (!err.response) {
               console.log(err);
-              props.setErrorMessage(err);
+              props.setErrorMessage(err.message);
             } else if (!err.response.data) {
               console.log(err.response);
-              props.setErrorMessage(err.response);
+              props.setErrorMessage(err.response.message);
             } else {
               props.setErrorMessage(err.response.data.message);
             }
