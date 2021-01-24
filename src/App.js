@@ -49,55 +49,83 @@ function App() {
         <Route exact path="/" component={Main} />
         <Route
           path="/patient/register"
-          component={PatientRegister}
-          setToastSuccess={setToastSuccess}
-          setToastError={setToastError}
-          setSuccessMessage={setSuccessMessage}
-          setErrorMessage={setErrorMessage}
+          render={(props) => (
+            <PatientRegister
+              {...props}
+              setToastSuccess={setToastSuccess}
+              setToastError={setToastError}
+              setSuccessMessage={setSuccessMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          )}
         />
         <Route
           path="/patient/dashboard"
-          component={PTDashboard}
-          setToastSuccess={setToastSuccess}
-          setToastError={setToastError}
-          setSuccessMessage={setSuccessMessage}
-          setErrorMessage={setErrorMessage}
+          render={(props) => (
+            <PTDashboard
+              {...props}
+              setToastSuccess={setToastSuccess}
+              setToastError={setToastError}
+              setSuccessMessage={setSuccessMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          )}
         />
         <Route
           path="/patient/appointment"
-          component={Appointment}
-          setToastSuccess={setToastSuccess}
-          setToastError={setToastError}
-          setSuccessMessage={setSuccessMessage}
-          setErrorMessage={setErrorMessage}
+          render={(props) => (
+            <Appointment
+              {...props}
+              setToastSuccess={setToastSuccess}
+              setToastError={setToastError}
+              setSuccessMessage={setSuccessMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          )}
         />
         <Route
           path="/gp/register"
-          component={GPRegister}
-          setToastSuccess={setToastSuccess}
-          setToastError={setToastError}
-          setSuccessMessage={setSuccessMessage}
-          setErrorMessage={setErrorMessage}
+          render={(props) => (
+            <GPRegister
+              {...props}
+              setToastSuccess={setToastSuccess}
+              setToastError={setToastError}
+              setSuccessMessage={setSuccessMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          )}
         />
         <Route
           path="/gp/dashboard"
-          component={GPDashboard}
-          setToastSuccess={setToastSuccess}
-          setToastError={setToastError}
-          setSuccessMessage={setSuccessMessage}
-          setErrorMessage={setErrorMessage}
+          render={(props) => (
+            <GPDashboard
+              {...props}
+              setToastSuccess={setToastSuccess}
+              setToastError={setToastError}
+              setSuccessMessage={setSuccessMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          )}
         />
         <Route
           path="/patient"
-          component={PatientLogin}
-          setToastError={setToastError}
-          setErrorMessage={setErrorMessage}
+          render={(props) => (
+            <PatientLogin
+              {...props}
+              setToastError={setToastError}
+              setErrorMessage={setErrorMessage}
+            />
+          )}
         />
         <Route
           path="/gp"
-          component={GPLogin}
-          setToastError={setToastError}
-          setErrorMessage={setErrorMessage}
+          render={(props) => (
+            <GPLogin
+              {...props}
+              setToastError={setToastError}
+              setErrorMessage={setErrorMessage}
+            />
+          )}
         />
       </Switch>
     </div>
