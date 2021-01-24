@@ -9,6 +9,7 @@ export default function Notification(props) {
         position: "absolute",
         top: 20,
         right: 20,
+        zIndex: 100,
       }}
     >
       <Toast
