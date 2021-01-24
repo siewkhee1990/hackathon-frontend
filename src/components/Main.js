@@ -8,7 +8,7 @@ export default function Main() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center'}} >
 
-      <Card style={{ width: '80%' }}>
+      <Card style={{ width: '80%', border: "0px" }}>
         
         <div style={{ margin: 'auto', width: '50%' }}>
           <Card.Img variant="top" src={vmslogo} style={{ height: '100%', width: '100%', justifyContent: 'center' }} />
