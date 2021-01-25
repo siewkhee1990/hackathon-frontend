@@ -51,8 +51,26 @@ export default function GPDashboard(props) {
   };
 
   const deleteAppointment = (id, info) => {
-    console.log(id);
-    console.log(info);
+    axios
+      .delete(`${BACKEND_URL_APPOINTMENTS}/id/${id}`)
+      .then((response) => {
+        console.log(response);
+        props.setToastSuccess(true);
+        props.setSuccessMessage(response.data.message);
+        setUpdate(!update);
+      })
+      .catch((err) => {
+        props.setToastError(true);
+        if (!err.response) {
+          console.log(err);
+          props.setErrorMessage(err.message);
+        } else if (!err.response.data) {
+          console.log(err.response);
+          props.setErrorMessage(err.response.message);
+        } else {
+          props.setErrorMessage(err.response.data.message);
+        }
+      });
   };
 
   const check = (event) => {

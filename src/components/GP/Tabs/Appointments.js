@@ -62,7 +62,7 @@ export default function Appointments(props) {
                           : "outline-secondary"
                       }
                       onClick={() =>
-                        props.deleteAppointment(element.id, element)
+                        props.deleteAppointment(element.aid, element)
                       }
                       disabled={element.status === "completed"}
                     >
